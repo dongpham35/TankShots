@@ -13,11 +13,17 @@ public class PlayerHealth : NetworkBehaviour
     [SyncVar(hook = nameof(OnHealthChanged))] // SyncVar with a hook for health updates
     public int currentHealth;
 
-    [SyncVar] public uint idloser = 0;
-
     public int maxHealth;
     public PlayerInformation data;
     public Image healthBar;
+
+    [Header("End game property")]
+    public GameObject UI_EndGame;
+    public Text txtStatus;
+
+
+    private const string STRING_WIN = "YOU WIN";
+    private const string STRING_LOST = "YOU LOST";
 
     private void Start()
     {
@@ -46,6 +52,8 @@ public class PlayerHealth : NetworkBehaviour
 
         // Prevent health from going below zero
         currentHealth = Mathf.Max(currentHealth - damage, 0);
+        if (currentHealth <= 0)
+            Debug.Log("ID loser is : " + netId);
     }
 
     // Method to heal the player
@@ -57,32 +65,23 @@ public class PlayerHealth : NetworkBehaviour
         currentHealth = Mathf.Min(currentHealth + amount, maxHealth);
     }
 
-    // Method called when health reaches zero
     private void Die()
     {
-        if (!isLocalPlayer) return;
-        CmdSendIdloser(netId);
-
-    }
-
-    [Command]
-    private void CmdSendIdloser(uint id)
-    {
-        RpcSendIdloser(idloser);
-    }
-
-    [ClientRpc]
-    private void RpcSendIdloser(uint id)
-    {
-        idloser = id;
-        if (netId == idloser)
-        {
-            Debug.Log("Loser");
-        }
+        if (isLocalPlayer)
+            ActiveEndGame(STRING_LOST);
         else
-        {
-            Debug.Log("Winner");
-        }
+            ActiveEndGame(STRING_WIN);
+    }
+
+    private void ActiveEndGame(string status)
+    {
+        UI_EndGame.SetActive(true);
+        txtStatus.text = status;
+    }
+
+    public void TurnOnMenu()
+    {
+        Debug.Log("Turn on menu");
     }
 
 }

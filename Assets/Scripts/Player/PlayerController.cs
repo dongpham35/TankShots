@@ -2,12 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 public class PlayerController : NetworkBehaviour
 {
+    [Header("Property of player")]
     public RectTransform healthBar;
-    
+    public Text txtScore;
+    public Text txtHealth;
+    public Image imgHealth;
+
+    [Header("Property of controll")]
     public Camera mainCamera;  // Reference to the camera
     public Transform tankBody; // Reference to the tank body for rotation
 
@@ -15,7 +21,6 @@ public class PlayerController : NetworkBehaviour
     
     private static List<GameObject> tanks = new List<GameObject>();
 
-    public Text txtScore;
 
     [SyncVar(hook = nameof(OnScoreChanged))]
     public int count;
@@ -67,12 +72,27 @@ public class PlayerController : NetworkBehaviour
     public override void OnStartClient()
     {
         tanks.Add(gameObject);
-        if (tanks.Count > 1)
+        if (!isLocalPlayer)
         {
             healthBar.anchorMin = new Vector2(1, 1);
             healthBar.anchorMax = new Vector2(1, 1);
             healthBar.anchoredPosition3D = new Vector3(-200, -25, 0);
-            healthBar.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+
+            //Change text health
+            txtHealth.rectTransform.anchorMin = new Vector2(1, 0.5f);
+            txtHealth.rectTransform.anchorMax = new Vector2(1, 0.5f);
+            txtHealth.rectTransform.anchoredPosition3D = new Vector3(-100, 0, 0);
+            txtHealth.alignment = TextAnchor.MiddleRight;
+
+            //Change text score
+            txtScore.rectTransform.anchorMin = new Vector2(1, 1);
+            txtScore.rectTransform.anchorMax = new Vector2(1, 1);
+            txtScore.rectTransform.anchoredPosition3D = new Vector3(-75, -75, 0);
+            txtScore.alignment = TextAnchor.UpperRight;
+
+            //Change img healh
+            imgHealth.fillOrigin = 1;
+
         }
     }
 

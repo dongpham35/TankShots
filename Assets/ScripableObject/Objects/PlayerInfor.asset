@@ -16,3 +16,18 @@ MonoBehaviour:
   minDamage: 1
   maxDamage: 5
   fireRate: 10
+  level: 0
+  experirene: 0
+  levelInfor:
+  - levelID: 1
+    experience: 10
+    damage: 1
+    health: 3
+  - levelID: 2
+    experience: 20
+    damage: 3
+    health: 5
+  - levelID: 3
+    experience: 30
+    damage: 5
+    health: 8
