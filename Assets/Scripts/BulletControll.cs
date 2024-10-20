@@ -11,8 +11,8 @@ public class BulletControll : NetworkBehaviour
     private const string NAME_ENEMY = "Enemy";
     private const string NAME_PLAYER = "Player";
 
-    private const int MIN_DAMAGE = 1;
-    private const int MAX_DAMAGE = 5;
+    private const int MIN_DAMAGE = 10;
+    private const int MAX_DAMAGE = 20;
 
     public GameObject onwer;
     
@@ -41,10 +41,9 @@ public class BulletControll : NetworkBehaviour
                     }
                 }
 
-                if (enemyHealth.currentHealth <= 0)
+                if (enemyHealth.currentHealth <= 0 && onwer.TryGetComponent<PlayerController>(out PlayerController playercontroll))
                 {
-                    PlayerController player = onwer.GetComponent<PlayerController>();
-                    player.count++;
+                        playercontroll.count++;
                 }
                 // Destroy the bullet on impact
                 Destroy(gameObject);
@@ -61,7 +60,7 @@ public class BulletControll : NetworkBehaviour
                     NetworkIdentity networkIdentity = other.gameObject.GetComponent<NetworkIdentity>();
                     if (networkIdentity != null)
                     {
-                        playerHealth.CmdTakeDamage(randDamage); // Call CmdTakeDamage to apply damage
+                        playerHealth.TakeDamage(randDamage); // Call CmdTakeDamage to apply damage
                     }
                 }
 

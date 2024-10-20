@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PlayerController : NetworkBehaviour
 {
     public RectTransform healthBar;
@@ -15,6 +15,9 @@ public class PlayerController : NetworkBehaviour
     
     private static List<GameObject> tanks = new List<GameObject>();
 
+    public Text txtScore;
+
+    [SyncVar(hook = nameof(OnScoreChanged))]
     public int count;
     private void Awake()
     {
@@ -25,6 +28,7 @@ public class PlayerController : NetworkBehaviour
     private void OnEnable()
     {
         count = 0;
+        txtScore.text = count.ToString();
     }
     
 
@@ -33,6 +37,12 @@ public class PlayerController : NetworkBehaviour
         RotateTowardsMouse();
     }
 
+
+    private void OnScoreChanged(int oldValue, int newValue)
+    {
+        txtScore.text = "";
+        txtScore.text = count.ToString();
+    }
     void RotateTowardsMouse()
     {
         if(!isLocalPlayer) return;
@@ -62,6 +72,7 @@ public class PlayerController : NetworkBehaviour
             healthBar.anchorMin = new Vector2(1, 1);
             healthBar.anchorMax = new Vector2(1, 1);
             healthBar.anchoredPosition3D = new Vector3(-200, -25, 0);
+            healthBar.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
         }
     }
 

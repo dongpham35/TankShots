@@ -31,7 +31,7 @@ public class SpawnManager : NetworkBehaviour
     {
         if(!isServer) return;
         if(timerToSpawn > 0) timerToSpawn -= Time.deltaTime;
-        if (timerToSpawn <= 0 && PlayerController.GetTanks().Count >= 2)
+        if (timerToSpawn <= 0 && PlayerController.GetTanks().Count >= 2 && enemies.Count < 5)
         {
             SpawnTurnEnemy();
             timerToSpawn = MAX_DELAY_SPAWN - waySpawn * 0.1f;

@@ -40,8 +40,8 @@ public class PlayerFire : NetworkBehaviour
 
         // Spawn the bullet across the network
         NetworkServer.Spawn(bullet);
-
+        bullet.GetComponent<BulletControll>().onwer = this.gameObject;
         // Optionally, destroy the bullet after a certain time
-        Destroy(bullet, 5f); // Destroy the bullet after 5 seconds
+        Destroy(bullet, 2f); // Destroy the bullet after 5 seconds
     }
 }

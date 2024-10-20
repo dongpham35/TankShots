@@ -52,9 +52,6 @@ public class EnemyHealth : NetworkBehaviour
     // Method called when health reaches zero
     private void Die()
     {
-        // Handle player death (disable the player, trigger respawn, etc.)
-        Debug.Log($"{gameObject.name} has died!");
-        // Example: Disable the player object or trigger a respawn
-        gameObject.SetActive(false); // For example, disable the player
+        Destroy(gameObject);
     }
 }

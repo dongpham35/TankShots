@@ -799,7 +799,6 @@ GameObject:
   - component: {fileID: 986400091}
   - component: {fileID: 986400090}
   - component: {fileID: 986400096}
-  - component: {fileID: 986400097}
   m_Layer: 0
   m_Name: Networking manager
   m_TagString: Untagged
@@ -953,23 +952,6 @@ MonoBehaviour:
   - {fileID: 990790707}
   - {fileID: 2064925655}
   - {fileID: 2004698705}
---- !u!114 &986400097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 986400089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b41412f72c162d84f9f2c4d0ab27ecd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  bulletPrefab: {fileID: 7810260376586049530, guid: 81ff726e906eefb47ac4a29ddb5ed1cc, type: 3}
-  maxBullets: 100
 --- !u!1 &990790706
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,14 +19,20 @@ public class ObjectPool : NetworkBehaviour
             Instance = this;
             DontDestroyOnLoad(this);
         }
+        InitBullet();
+        
+    }
+    [Server]
+    private void InitBullet()
+    {
 
-        for (int i = 0; i < maxBullets; i++)
-        {
-            GameObject bullet = Instantiate(bulletPrefab);
-            NetworkServer.Spawn(bullet);
-            bulletPools.Add(bullet, null);
-            bullet.SetActive(false);
-        }
+        InitBulletInClient();
+    }
+
+    [TargetRpc]
+    private void InitBulletInClient()
+    {
+
     }
 
     public GameObject GetBullet(GameObject onwer)

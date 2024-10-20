@@ -34,6 +34,7 @@ public class TankAttack : IState<TankState>
     public void SetAllPlayer(List<GameObject> players)
     {
         li_players = players;
+        Debug.Log("Set all player");
     }
     private void SetTargetPlayer()
     {
